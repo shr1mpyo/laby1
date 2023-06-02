@@ -1,0 +1,80 @@
+#include <iostream>
+#include <cmath>
+#include <locale>
+
+using namespace std;
+
+// Константы для плотности железа и меди в кг/м3
+const double IRON_DENSITY = 7874;
+const double COPPER_DENSITY = 8960;
+
+class Tetrahedron {
+private:
+    double a;
+    double base_area;
+    double lateral_area;
+    double total_area;
+    double volume;
+    double weight;
+public:
+    Tetrahedron(double a, double density) {
+        this->a = a;
+        this->base_area = (a * a * sqrt(3)) / 4;
+        this->lateral_area = 3 * a * a * sqrt(3) / 4;
+        this->total_area = a * a * sqrt(3);
+        this->volume = (a * a * a * sqrt(2)) / 12;
+        this->weight = this->volume * density;
+    }
+
+    double get_a() {
+        return this->a;
+    }
+
+    double get_base_area() {
+        return this->base_area;
+    }
+
+    double get_lateral_area() {
+        return this->lateral_area;
+    }
+
+    double get_total_area() {
+        return this->total_area;
+    }
+
+    double get_volume() {
+        return this->volume;
+    }
+
+    double get_weight() {
+        return this->weight;
+    }
+};
+
+void print_info(Tetrahedron t) {
+    cout << "Ребро тетраэдра: " << t.get_a() << " м" << endl;
+    cout << "Площадь основания: " << t.get_base_area() << " м2" << endl;
+    cout << "Боковая поверхность: " << t.get_lateral_area() << " м2" << endl;
+    cout << "Полная поверхность: " << t.get_total_area() << " м2" << endl;
+    cout << "Объем: " << t.get_volume() << " м3" << endl;
+    cout << "Вес: " << t.get_weight() << " кг" << endl;
+}
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+    Tetrahedron iron_tetra(1, IRON_DENSITY);
+    Tetrahedron copper_tetra(1, COPPER_DENSITY);
+
+    cout << "Железный тетраэдр:" << endl;
+    print_info(iron_tetra);
+    cout << endl;
+
+    cout << "Медный тетраэдр:" << endl;
+    print_info(copper_tetra);
+    cout << endl;
+
+    double weight_ratio = iron_tetra.get_weight() / copper_tetra.get_weight();
+    cout << "Отношение весов железного и медного тетраэдра при равных объемах: " << weight_ratio << endl;
+
+    return 0;
+}
