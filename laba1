@@ -1,0 +1,89 @@
+#include <iostream>
+#include <locale>
+
+using namespace std;
+
+// Класс для представления даты
+class Date {
+private:
+    int day;
+    int month;
+    int year;
+
+public:
+    Date() {
+        day = 1;
+        month = 1;
+        year = 2000;
+    }
+
+    Date(int d, int m, int y) {
+        day = d;
+        month = m;
+        year = y;
+    }
+
+    void print() {
+        cout << day << "." << month << "." << year << endl;
+    }
+};
+
+// Класс для представления суммы денег
+class TMoney {
+private:
+    int rubli;
+    int kopeiki;
+
+public:
+    TMoney() {
+        rubli = 0;
+        kopeiki = 0;
+    }
+
+    TMoney(int r, int k) {
+        rubli = r;
+        kopeiki = k;
+    }
+
+    void print() {
+        cout << rubli << " руб. " << kopeiki << " коп." << endl;
+    }
+};
+
+// Класс для представления счета
+class Account {
+private:
+    string owner;
+    TMoney balance;
+    Date date;
+
+public:
+    Account() {
+        owner = "Unknown";
+        balance = TMoney();
+        date = Date();
+    }
+
+    Account(string o, TMoney b, Date d) {
+        owner = o;
+        balance = b;
+        date = d;
+    }
+
+    void print() {
+        cout << "Владелец счета: " << owner << endl;
+        cout << "Баланс счета: ";
+        balance.print();
+        cout << "Дата открытия счета: ";
+        date.print();
+    }
+};
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+    
+    Account person1("Иван Иванов", TMoney(1000, 50), Date(01, 05, 2023));
+    person1.print();
+
+    return 0;
+}
