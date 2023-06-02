@@ -1,0 +1,62 @@
+#include <iostream>
+#include <string>
+#include <locale>
+
+using namespace std;
+
+// Базовый класс «Автомобиль»
+class Car {
+protected:
+    string model; // наименование модели автомобиля
+    double max_speed; // максимальная скорость в км/ч
+public:
+    // Конструктор для инициализации полей
+    Car(string m, double s) {
+        model = m;
+        max_speed = s;
+    }
+    // Функция для печати параметров автомобиля
+    virtual void print() {
+        cout << "Модель: " << model << endl;
+        cout << "Максимальная скорость: " << max_speed << " км/ч" << endl;
+    }
+};
+
+// Производный класс «Грузовой автомобиль»
+class Truck : public Car {
+private:
+    double capacity; // грузоподъемность в тоннах
+public:
+    // Конструктор для инициализации полей
+    Truck(string m, double s, double c) : Car(m, s) {
+        capacity = c;
+    }
+    // Переопределенная функция печати параметров автомобиля
+    void print() override {
+        Car::print(); // вызов функции из базового класса
+        cout << "Грузоподъемность: " << capacity << " тонн" << endl;
+    }
+};
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+
+    // Создание по одному объекту каждого из классов
+    Car c1("Toyota", 180);
+    Truck t1("Volvo", 120, 10);
+
+    // Показать вызов созданных функций
+    c1.print();
+    cout << endl;
+    t1.print();
+
+    // Показать динамический полиморфизм
+    Car* ptr = &c1; // указатель на базовый класс
+    ptr->print(); // вызов функции из базового класса
+    cout << endl;
+
+    ptr = &t1; // указатель на производный класс
+    ptr->print(); // вызов функции из производного класса
+
+    return 0;
+}
