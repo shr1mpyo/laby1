@@ -1,0 +1,114 @@
+#include <iostream>
+#include <locale>
+#include <string>
+
+using namespace std;
+
+// Класс для представления даты
+class Date {
+private:
+    int day;
+    int month;
+    int year;
+public:
+
+    Date() {
+        day = 1;
+        month = 1;
+        year = 2000;
+    }
+
+    Date(int d, int m, int y) {
+        day = d;
+        month = m;
+        year = y;
+    }
+
+    string toString() {
+        return "Дата оформления: " + to_string(day) + "." + to_string(month) + "." + to_string(year);
+    }
+};
+
+// Класс для представления товара
+class Goods {
+private:
+    string name; // наименование товара
+    Date date; // дата оформления
+    double price; // цена товара
+    int quantity; // количество единиц товара
+    int invoice; // номер накладной
+public:
+
+    Goods() {
+        name = "Unknown";
+        date = Date();
+        price = 0.0;
+        quantity = 0;
+        invoice = 0;
+    }
+
+    Goods(string n, Date d, double p, int q, int i) {
+        name = n;
+        date = d;
+        price = p;
+        quantity = q;
+        invoice = i;
+    }
+
+    void changePrice(double newPrice) {
+        price = newPrice;
+    }
+
+    void increaseQuantity(int amount) {
+        quantity += amount;
+    }
+
+    void decreaseQuantity(int amount) {
+        quantity -= amount;
+    }
+
+    double calculateCost() {
+        return price * quantity;
+    }
+
+    string toString() {
+        return "Стоимость товара: " + name + " составляет " + to_string(calculateCost()) + " рублей.";
+    }
+
+    string getDate() {
+        return date.toString();
+    }
+};
+
+// Функция для тестирования класса Goods
+void testGoods() {
+    // Создаем объект класса Goods с заданными параметрами
+    Goods book("Книга", Date(15, 4, 2023), 500.0, 10, 1234);
+
+    // Выводим стоимость товара до изменений
+    cout << book.toString() + " " + book.getDate() << endl;
+
+    // Изменяем цену товара на 600 рублей
+    book.changePrice(600.0);
+
+    // Увеличиваем количество товара на 5 единиц
+    book.increaseQuantity(5);
+
+    // Выводим стоимость товара после изменений
+    cout << book.toString() + " " + book.getDate() << endl;
+
+    // Уменьшаем количество товара на 3 единицы
+    book.decreaseQuantity(3);
+
+    // Выводим стоимость товара после изменений
+    cout << book.toString() + " " + book.getDate() << endl;
+}
+
+// Главная функция программы
+int main() {
+    setlocale(LC_ALL, "Russian");
+
+    testGoods();
+
+    return 0;
+}
